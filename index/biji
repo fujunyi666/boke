@@ -1,0 +1,7 @@
+1.每当需要修改'学习笔记'管理的数据时，都采取如下三个步骤：修改model.py,对index调用makemigrations，让Django迁移项目
+2.为通过外键关系获取数据，可使用相关模型的 小写名称_set.   有一个名为my_pizza的对象，表示一张披萨，就可使用my_pizza.topping_set.all()来获取这张披萨的所有配料 。
+3. 列表循环 <! --{% for item in list %}
+               do something with each item
+            {% endfor %}
+           -->
+4.

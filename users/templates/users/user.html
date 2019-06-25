@@ -1,0 +1,54 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <style type="text/css">
+        .clk{color: red}
+    </style>
+
+</head>
+
+<body style="background-image: url({% static 'timg.jpg' %});background-size:100% 150%;">
+
+{% load bootstrap3 %}
+
+
+  <div class="flex-center">
+      <div class="container">
+      <div class="flex-center">
+      <div class="unit-1-2 unit-1-on-mobile">
+          <h1>MyDjango Auth</h1>
+      <br>
+          {% if tips %}
+              <div class="clk">{{ tips }}</div>
+          {% endif %}
+          <form class="form" action="" method="post">
+              {% csrf_token %}
+              <div>用户名：<input type="text" name="username"></div>
+              <div>密 码：<input type="password" name="password"></div>
+
+              <div>新密码：<input type="password" name="new_password"></div>
+              <button type="submit" class="btn btn-primary btn-block">确  定</button>
+
+          </form>
+            <div class="flex-left top-gap text-small">
+                <div class="unit-2-3">
+                    <a href="{{ unit_2 }}">{{ unit_2_name }}</a>
+                </div>
+                <div class="unit-1-3 flex-right">
+                    <a href="{{ unit_1 }}">{{ unit_1_name }}</a>
+                </div>
+            </div>
+
+      </div>
+      </div>
+      </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <title>登录</title>
+</head>
+<body>
+    {% extends "index/base.html" %}
+    {% load bootstrap3 %}
+    {% block header %}
+        <h2>Log in to your account.</h2>
+    {% endblock header%}
+
+    {% block content %}
+        <form method="post" action="{% url 'users:login' %}" class="form">
+        {% csrf_token %}
+        <!--来显示表单，将Bootstrap样式应用于各个表单元素-->
+         {% bootstrap_form form %}
+         {% buttons %}
+             <button name="submit" class="btn btn-primary">log in</button>
+         {% endbuttons %}
+          <input type="hidden" name="next" value="{% url 'index:index' %}" />
+         <div class="unit-2-3">
+         <a href="register.html">{{ 立即注册 }}</a>
+        </div>
+        <div class="unit-1-3 flex-right">
+         <a href="findpassword.html">{{ 忘记密码 }}</a>
+        </div>
+        </form>
+
+    {% endblock content%}
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 写笔记</title>
+</head>
+<body>
+{% extends "index/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+	<h2>Add a new entry:</h2>
+{% endblock header%}
+
+{% block content %}
+	<h3><a href="{% url 'index:topic' topic.id %}">{{ topic }}</a></h3>
+
+	<form action = "{% url 'index:new_entry' topic.id %}" method='post'
+		class="form">
+
+		{% csrf_token %}	<!-- #防御csrf攻击的方式-->
+		{{ form.as_p }}		<!-- #把form表单在前端页面渲染成p标签的形式展示，此外还有as_ul,as_table等 -->
+
+		{% buttons %}
+			<button name='submit' class="btn btn-primary">add entry</button>
+		{% endbuttons%}
+
+    </form>
+
+{% endblock content%}
+
+</body>
+</html>

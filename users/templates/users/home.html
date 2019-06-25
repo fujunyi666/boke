@@ -1,0 +1,22 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+
+    <link type="text/css" rel="stylesheet" href="{% static "common.css" %}">
+    <link type="text/css" rel="stylesheet" href="{% static "user.css" %}">
+</head>
+<body style="background-image: url({% static 'timg.jpg' %});">
+      <div class="profile_cove_link">
+
+            <img src="{% static "timg.jpg" %}" class="profile_cover">
+      </div>
+       <h1 class="profile_tit">
+           <span class="profile_name">root</span>
+       </h1>
+      <a href="{% url 'users:logout' %}" style="color:black;">退出登录</a>
+</body>
+</html>

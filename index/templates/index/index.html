@@ -1,0 +1,33 @@
+{%  extends "index/base.html" %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+
+    <style type="text/css">
+
+        .zt{font-family:"HanziPen SC",serif}
+    </style>
+</head>
+<body>
+
+  {% block header %}
+      <div class="jumbotron">
+
+         <h1 class="zt">Track your learning.</h1>
+      </div>
+  {% endblock header %}
+  {% block content %}
+      <h3 class="zt">
+         <a href="{% url 'users:register' %}">Register an account</a> to make your own Learning Log,and list the topics you're learning about.
+      </h3>
+      <h3>
+         Whenever you learn something new about a topic, make an entry summarizing what you've learned.
+      </h3>
+  {% endblock content %}
+</body>
+</html>

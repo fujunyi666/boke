@@ -1,0 +1,31 @@
+ {% extends "index/base.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body style="background-image: url({% static 'timg.jpg' %});background-size:100% 150%;">
+
+
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2>Register to your account.</h2>
+{% endblock header %}
+
+{% block content %}
+  <form method="post" action="{% url 'users:register' %}" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% buttons %}
+        <button name="submit" class="btn btn-primary">register</button>
+    {%endbuttons %}
+    <input type="hidden" name="next" value="{% url 'index:index' %}" />
+  </form>
+{% endblock content %}
+
+</body>
+</html>

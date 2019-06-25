@@ -1,0 +1,81 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>学习笔记</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+   <!-- <style type="text/css">
+        .bg{background-color: khaki}
+        .mk{padding-top: 16px;color: dimgray}
+    </style>-->
+    <script type="text/javascript">
+		function start(){
+			var now=new Date();
+			var hr=now.getHours();
+			var min=now.getMinutes();
+			var sec=now.getSeconds();
+			var clocktext="Time："+hr+":"+min+":"+sec;
+			var timeTD=document.getElementById("timeArea");
+			timeTD.innerText=clocktext;
+		}
+		window.setInterval("start()",1000);
+	</script>
+</head>
+<body style="background-image: url({% static 'timg.jpg' %});background-size:100% 150%;">
+ <div class="bg">
+   <!-- Static navbar -->
+   <!--nav表示导航链接-->
+   <nav class="navbar navbar-default navbar-static-top">
+       <div class="container">
+           <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed"
+                   data-toggle="collapse" data-target="#navbar"
+                   aria-expanded="false" aria-controls="navbar">
+               </button>
+               <a class="navbar-brand" href="{% url 'index:index' %}">Learning Log</a>
+           </div>
+
+           <div id="navbar" class="navbar-collapse collapse">
+               <ul class="nav navbar-nav">
+                   <li><a href="{% url 'index:topics' %}">Topics</a></li>
+               </ul>
+
+               <ul class="nav navbar-nav navbar-right">
+                   {% if user.is_authenticated %}
+
+                     <!--  <li id="timeArea" class="mk"></li>-->
+                       <li><a>你好,{{ user.username }}.</a></li>
+                       <li><a href="{% url 'users:home' %}">个人中心</a> </li>
+                       <li><a href="{% url 'users:logout' %}">注销</a> </li>
+                       <li><a href="{% url 'users:setpassword' %}">修改密码</a> </li>
+                   {% else %}
+                       <li><a href="http://127.0.0.1:8000/admin">管理员</a> </li>
+                       <li><a href="{% url 'users:register' %}">注册</a></li>
+                       <li><a href="{% url 'users:login1' %}">登录</a> </li>
+
+                       <li></li>
+                   {% endif %}
+               </ul>
+           </div><!--/.nav-collapse-->
+       </div>
+
+   </nav>
+   <div class="container">
+       <div class="page-header">
+           {% block header %}
+           {% endblock header %}
+
+       </div>
+       <div>
+           {% block content %}
+           {% endblock content %}
+       </div>
+   </div>
+ </div>
+</body>
+</html>

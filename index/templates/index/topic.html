@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>topic</title>
+</head>
+<body>
+    {% extends 'index/base.html' %}
+     {% load staticfiles %}
+    {% block header %}
+        <h2>{{Topic}}</h2>
+    {% endblock header %}
+
+    {% block content %}
+        <h4>
+           <a href="{% url 'index:new_entry' topic.id %}">add new entry</a>
+        </h4>
+
+        {% for entry in entries %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    {{ entry.date_added|date:'M d, Y H:i' }}
+                    <small>
+                        <a href="{% url 'index:edit_entry' entry.id %}"> <span class="glyphicon glyphicon-pencil" style="margin-left: 2px"></span></a>
+                    </small>
+                     <a name="delete" href="javascript:" onclick="del_column(this, {{ entry.id }})">
+                    <span class="glyphicon glyphicon-trash" style="margin-left:20px; " title="暂未开放此功能l" ></span>
+                   </a>
+                </h3>
+            </div>
+           <div class="panel-body">
+               {{ entry.text|linebreaks }}
+           </div>
+        </div>
+         {% empty %}
+            There are no entries for this topic yet.
+        {% endfor %}
+<script type="text/javascript" src='{% static "js/jquery.js" %}'></script>
+<script type="text/javascript" src="{% static 'js/layer.js'%}"></script>
+<script type="text/javascript">
+
+function del_column(the, entry_id){
+    var name = $(the).parents("tr").children("td").eq(1).text();
+    layer.open({
+    type: 1,
+    skin: "layui-layer-rim",
+    area: ["400px", "200px"],
+    title: "删除栏目",
+    content: '<div class="text-center" style="margin-top:20px"><p>是否确定删除{'+name+'}栏目</p></div>',
+    btn:['确定', '取消'],
+    yes: function(){
+        $.ajax({
+        url: '{% url 'index:del_entry' %}',
+        type:"POST",
+        data: {"entry_id": entry_id},
+        success: function(e){
+            if(e=="1"){
+            parent.location.reload();
+            layer.msg("has been deleted.");
+        }else{
+            layer.msg("删除失败");
+        }
+        },
+        })
+    },
+    });
+}
+
+</script>
+    {% endblock content %}
+</body>
+</html>

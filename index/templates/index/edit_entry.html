@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   {% extends "index/base.html" %}
+   {% load bootstrap3 %}
+   {% block header %}
+	<h2>Edit a entry</h2>
+{% endblock header%}
+   {% block content %}
+       <h4><a href="{% url 'index:topic' topic.id %}">{{ topic }}</a> </h4>
+       <p>Edit entry:</p>
+
+       <form action="{% url 'index:edit_entry' entry.id %}" method="post",class="form">
+         {% csrf_token %}
+         {% bootstrap_form form %}
+         {% buttons %}
+             <button name="submit" class="btn btn-primary">Save Edit</button>
+         {% endbuttons %}
+
+       </form>
+   {% endblock content %}
+</body>
+</html>

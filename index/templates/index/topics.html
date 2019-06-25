@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Topics</title>
+     <style type="text/css">
+         a:link{color: grey}
+
+         a:visited{color: dimgrey}
+         a:hover{color: darkgray }
+         a:active{color: dimgray}
+     </style>
+</head>
+<body>
+    {% extends "index/base.html"%}
+    {% load staticfiles %}
+
+    {% block header %}
+        <h2>Topics</h2>
+    {% endblock header %}
+
+    {% block content %}
+
+       <div>
+
+        <table class="table table-hover" >
+          <tr>
+            <td>序号</td>
+            <td>话题</td>
+            <td>操作</td>
+              <td></td>
+          </tr>
+            {% for topic in topics %}
+               <tr>
+                  <td>{{ topic.id }}</td>
+                  <td>
+
+                       <a href="{% url 'index:topic' topic.id %}" style="text-decoration: none">{{ topic }}</a>
+                  </td>
+               <td>
+                    <a href="{% url 'index:edit_topic' topic.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+
+                  <a name="delete" href="javascript:" onclick="show()">
+                    <span class="glyphicon glyphicon-trash" style="margin-left:20px;" title="暂未开放此功能"></span>
+                   </a>
+
+
+               </td>
+
+               </tr>
+
+            {% empty %}
+                <li>No topics have been added yet.</li>
+
+            {% endfor %}
+
+
+        </table>
+        <h4 align="right"><a href="{% url 'index:new_topic' %}" style="text-decoration: none" >Add new topic </a></h4>
+       </div>
+
+
+
+<script type="text/javascript">
+
+function del_column(the, topic_id){
+    var name = $(the).parents("tr").children("td").eq(1).text();
+    layer.open({
+    type: 1,
+    skin: "layui-layer-rim",
+    area: ["400px", "200px"],
+    title: "删除栏目",
+    content: '<div class="text-center" style="margin-top:20px"><p>是否确定删除{'+name+'}栏目</p></div>',
+    btn:['确定', '取消'],
+    yes: function(){
+        $.ajax({
+        url: '{% url 'index:del_topic' %}',
+        type:"POST",
+        data: {"topic_id": topic_id},
+        success: function(e){
+            if(e=="1"){
+            parent.location.reload();
+            layer.msg("has been deleted.");
+        }else{
+            layer.msg("删除失败");
+        }
+        },
+        })
+    },
+    });
+}
+function show() {
+  alert('您不是超级用户');
+
+}
+</script>
+    {% endblock content %}
+
+
+</body>
+</html>
